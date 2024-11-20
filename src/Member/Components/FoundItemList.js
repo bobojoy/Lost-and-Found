@@ -5,13 +5,14 @@ import { Link } from "react-router-dom"; // Link for navigation
 import FoundItemCard from "./FoundItemCard"; // Assuming you have a FoundItemCard component
 import NavBar from "./NavBar"; // Assuming you have a NavBar component
 import "./App.css";
+import { BASEURL } from "../../constants";
 
 const FoundItemList = () => {
   const [items, setItems] = useState([]);
 
   // Fetching the items (assuming API returns an array of found items)
   useEffect(() => {
-    fetch("founditems")
+    fetch(`${BASEURL}/founditems`)
       .then((res) => res.json())
       .then((data) => setItems(data))
       .catch((error) => console.error("Error fetching data:", error));

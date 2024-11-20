@@ -3,16 +3,18 @@ import LostItemCard from "./LostItemCard";
 import NavBar from "./NavBar";
 import { Link } from "react-router-dom";
 import "./App.css";
+import { BASEURL } from "../../constants";
 
 const LostItemList = () => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    fetch("/lostitems")
+    fetch(`${BASEURL
+    }/lostitems`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data); // Log the data to check its structure
-        setItems(Array.isArray(data) ? data : []); // Ensure it's an array
+        console.log(data);
+        setItems(Array.isArray(data) ? data : []);
       })
       .catch((error) => console.error("Error fetching data:", error));
   }, []);

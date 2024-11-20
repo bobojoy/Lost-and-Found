@@ -1,7 +1,6 @@
 {
   "name": "my-app",
   "version": "0.1.0",
-  "proxy": "https://lost-and-found-backend-qk8k.onrender.com/",
   "private": true,
   "dependencies": {
     "@fortawesome/free-brands-svg-icons": "^6.7.0",
