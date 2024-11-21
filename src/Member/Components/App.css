@@ -6,16 +6,18 @@ body {
 
 
 .card {
-	border: 1px solid #ddd;
-	border-radius: 8px;
+	border: 30px solid #ddd;
+	border-radius: 40px;
 	
-	padding: 16px;
-	max-width: 300px;
+	padding: 90px;
+	max-width: 400px;
 	background-color: black;	
 	
 	overflow: hidden; /* Prevent overflow for rounded corners */
 	transition: transform 0.3s, box-shadow 0.3s; /* Smooth transitions */
-	margin: 20px; 
+	margin: 10px; 
+  display: flex;
+  align-items: center;
 	  
 }
 
@@ -26,24 +28,24 @@ body {
 
 
 .card img {
-	width: 100%;
-	border-radius: 8px;
+	width: 180%;
+	border-radius: 9px;
 	height: 200px; /* Fixed height for consistency */
 	object-fit: cover; /* Cover to maintain aspect ratio */
 	  
 }
 
 .card h3 {
-	margin-top: 12px;
+	margin-top: 9px;
 	font-size: 1.5rem;
 	color: rgb(239, 239, 247);
-	margin: 10px; /* Space around the title */
+	margin: 15px; /* Space around the title */
 
 	  
 }
 
 .card p {
-	margin: 8px 0;
+	margin: 7px 0;
 	color: palegoldenrod;
 	font-size: 1rem;
 }
