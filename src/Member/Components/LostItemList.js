@@ -1,42 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import LostItemCard from "./LostItemCard";
-import NavBar from "./NavBar";
-import { Link } from "react-router-dom";
-import "./App.css";
-import { BASEURL } from "../../constants";
 
-const LostItemList = () => {
-  const [items, setItems] = useState([]);
-
-  useEffect(() => {
-    fetch(`${BASEURL
-    }/lostitems`)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setItems(Array.isArray(data) ? data : []);
-      })
-      .catch((error) => console.error("Error fetching data:", error));
-  }, []);
+const LostItemList = ({ items, onApprove, onReject, onDelete }) => {
+  if (items.length === 0) {
+    return <p>No lost items found.</p>;
+  }
 
   return (
-    <div className="found-item-list">
-      <header className="header">
-        <NavBar />
-      </header>
-
-      <main className="listcard">
-        <div className="report-button-container">
-          <Link to="/report-lost-item">
-            <button className="report-found-item-button">
-              Report Lost Item
+    <div className="lost-item-list">
+      {items.map((item) => (
+        <div className="lost-item-card" key={item.id}>
+          <LostItemCard item={item} />
+          <div className="admin-actions">
+            <button
+              className="approve-button"
+              onClick={() => onApprove(item.id)}
+              disabled={item.status === "approved"}
+            >
+              Approve
             </button>
-          </Link>
+            <button
+              className="reject-button"
+              onClick={() => onReject(item.id)}
+              disabled={item.status === "rejected"}
+            >
+              Reject
+            </button>
+            <button
+              className="delete-button"
+              onClick={() => onDelete(item.id)}
+            >
+              Delete
+            </button>
+          </div>
         </div>
-
-        {Array.isArray(items) &&
-          items.map((item) => <LostItemCard key={item.id} item={item} />)}
-      </main>
+      ))}
     </div>
   );
 };

@@ -7,6 +7,7 @@ import LostItemList from "./LostItemList";
 import FoundItemDetailsPage from "./FoundItemDetailsPage";
 import LostItemDetailsPage from "./LostItemDetailsPage";
 import Signup from "./SignUp";
+import LostItemPage from "./LostItemPage";
 import LostItemFormComponent from "./LostItemFormComponent";
 import ClaimItemFormComponent from "../Components/ClaimItemFormComponent"; // Adjusted import path
 import FoundItemFormComponent from "../Components/FoundItemFormComponent"; // Adjusted import path
@@ -37,6 +38,7 @@ const Routes = [
     path: "/signup",
     element: <Signup />,
   },
+  
   {
     path: "/login",
     element: <LogIn />,
@@ -60,6 +62,10 @@ const Routes = [
   {
     path: "/claim-item/:id", // Route for claim item form
     element: <ClaimItemFormComponent />,
+  },
+  {
+    path: "/lostitempage",
+    element: <LostItemPage />,
   },
   {
     path: "/lostitem/:id",

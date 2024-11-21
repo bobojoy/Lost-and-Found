@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./App.css";
+import "./App.css"; // Ensure styles are applied
 
 const LostItemCard = ({ item }) => {
   return (
@@ -10,16 +10,16 @@ const LostItemCard = ({ item }) => {
         <div className="body">
           <h3>{item.name}</h3>
           <p>
-            <strong>Place Found:</strong> {item.place_lost}
+            <strong>Place Lost:</strong> {item.place_lost}
           </p>
           <p>
-            <strong>Date Found:</strong> {item.description}
+            <strong>Description:</strong> {item.description || "No description available"}
           </p>
           <p>
-            <strong>Reward:</strong> {item.reward}
+            <strong>Reward:</strong> {item.reward || "No reward specified"}
           </p>
           <p>
-            <strong>Reward:</strong> {item.status}
+            <strong>Status:</strong> {item.status || "Unknown"}
           </p>
         </div>
       </Link>

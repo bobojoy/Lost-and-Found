@@ -1,72 +1,118 @@
-import React, { useState, useEffect } from "react";
-import AdminNav from "./AdminNav";
-import TabSelector from "./TabSelector";
-import SearchBar from "./SearchBar";
-import ItemCard from "./ItemCard";
-import AddItemModal from "./AddItemModal";
-import { useItems } from "../hooks/useItems"; // Assuming this hook fetches items
+import React, { useEffect, useState } from "react";
+import LostItemFormComponent from "./LostItemFormComponent";
+import LostItemList from "./LostItemList";
+import NavBar from "./NavBar";
+import { BASEURL } from "../../constants";
 import "./Admin.css";
 
-function Admin() {
-  const { items, setItems } = useItems(); // Use custom hook to manage items state
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState("found");
-  const [searchQuery, setSearchQuery] = useState("");
+const Admin = () => {
+  const [items, setItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
+  // Fetch items from the API on component mount
   useEffect(() => {
-    // Fetch the latest items when the component is mounted or updated
     const fetchItems = async () => {
-      const response = await fetch("/api/items");
-      const data = await response.json();
-      setItems(data);
+      setIsLoading(true);
+      try {
+        const response = await fetch(`${BASEURL}/lostitems`);
+        const data = await response.json();
+        setItems(Array.isArray(data) ? data : []);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setIsLoading(false);
+      }
     };
 
     fetchItems();
-  }, [setItems]);
 
-  // Filter items based on tab and search query
-  const filteredItems = items.filter(
-    (item) =>
-      (activeTab === "pending"
-        ? item.status === "pending"
-        : item.type === activeTab) &&
-      (item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.description.toLowerCase().includes(searchQuery.toLowerCase()))
-  );
+    // Listen for newly added items
+    const handleNewItem = (event) => {
+      setItems((prevItems) => [event.detail, ...prevItems]);
+    };
+    window.addEventListener("item-added", handleNewItem);
+
+    return () => {
+      window.removeEventListener("item-added", handleNewItem);
+    };
+  }, []);
+
+  // Add a new item
+  const addLostItem = (newItem) => {
+    setItems((prevItems) => [newItem, ...prevItems]);
+  };
+
+  // Handle Approving or Rejecting an Item
+  const handleApproval = async (id, action) => {
+    try {
+      const response = await fetch(`${BASEURL}/lostitems/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          status: action === "approve" ? "approved" : "rejected",
+        }),
+      });
+
+      if (!response.ok) throw new Error("Failed to update item status");
+
+      const updatedItem = await response.json();
+      setItems((prevItems) =>
+        prevItems.map((item) =>
+          item.id === id ? { ...item, status: updatedItem.status } : item
+        )
+      );
+    } catch (error) {
+      console.error("Error updating item:", error);
+    }
+  };
+
+  // Handle Deleting an Item
+  const handleDelete = async (id) => {
+    if (window.confirm("Are you sure you want to delete this item?")) {
+      try {
+        const response = await fetch(`${BASEURL}/lostitems/${id}`, {
+          method: "DELETE",
+        });
+
+        if (!response.ok) throw new Error("Failed to delete item");
+
+        setItems((prevItems) => prevItems.filter((item) => item.id !== id));
+      } catch (error) {
+        console.error("Error deleting item:", error);
+      }
+    }
+  };
 
   return (
-    <div className="admin-container">
-      <AdminNav activeTab={activeTab} onAddClick={() => setIsModalOpen(true)} />
+    <div className="admin-dashboard">
+      <header className="header">
+        <NavBar />
+      </header>
 
-      <main className="main-content">
-        <div className="content-wrapper">
-          <TabSelector activeTab={activeTab} onTabChange={setActiveTab} />
+      <main className="admin-main-content">
+        <h1>Admin Dashboard</h1>
 
-          <SearchBar value={searchQuery} onChange={setSearchQuery} />
+        <section className="form-section">
+          <LostItemFormComponent addLostItem={addLostItem} />
+        </section>
 
-          <div className="item-grid">
-            {filteredItems.map((item) => (
-              <ItemCard
-                key={item.id}
-                item={item}
-                onStatusChange={() => {}} // Placeholder for status change handler
-                onAcceptClaim={() => {}} // Placeholder for claim acceptance
-              />
-            ))}
-          </div>
-        </div>
+        {isLoading ? (
+          <div className="loading">Loading...</div>
+        ) : (
+          <section className="item-list-section">
+            <LostItemList
+              items={items}
+              onApprove={(id) => handleApproval(id, "approve")}
+              onReject={(id) => handleApproval(id, "reject")}
+              onDelete={handleDelete}
+            />
+          </section>
+        )}
       </main>
-
-      {isModalOpen && (
-        <AddItemModal
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          onAdd={() => {}} // Your item add handler here
-          type={activeTab}
-        />
-      )}
     </div>
   );
-}
+};
 
 export default Admin;

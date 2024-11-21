@@ -18,35 +18,37 @@ function NavBar() {
           <ul className="navbar">
             <NavLink to="/">
               <li>
-                <a href="#home">Home</a>
+                Home
               </li>
             </NavLink>
-            <NavLink to="/lostitems">
+            <NavLink to="/lostitempage">
               <li>
-                <a href="#">Lost Items</a>
+               Lost Items Page
               </li>
             </NavLink>
             <NavLink to="/founditems">
               <li>
-                <a href="#">Found Items</a>
+               Found Items
               </li>
             </NavLink>
             <NavLink to="/signup">
               <li>
-                <a href="#">Sign Up</a>
+               Sign Up
               </li>
             </NavLink>
-
+  
             <NavLink to="/logout">
               <li>
-                <a href="#">LogOut</a>
+               LogOut
               </li>
             </NavLink>
             <NavLink to="/admin">
               <li>
-                <a href="#">Admin</a>
+               Admin
               </li>
             </NavLink>
+          
+            
           </ul>
         </header>
       </nav>
