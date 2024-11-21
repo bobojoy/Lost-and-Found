@@ -8,22 +8,18 @@ body {
 .card {
 	border: 1px solid #ddd;
 	border-radius: 8px;
-	
 	padding: 16px;
 	max-width: 300px;
 	background-color: black;	
-	
 	overflow: hidden; /* Prevent overflow for rounded corners */
 	transition: transform 0.3s, box-shadow 0.3s; /* Smooth transitions */
 	margin: 20px; 
 	  
 }
 
-
 .card:hover {
 	transform: scale(1.05);
 }
-
 
 .card img {
 	width: 100%;
@@ -254,12 +250,15 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
+  width: 200vh;
   background-color: #f7f7f7;
+  
+ 
 }
 
 .logout-container h1 {
-  font-size: 2rem;
-  color: #333;
+  font-size: 70px;
+  color:rgb(179, 47, 255);
   margin-bottom: 20px;
 }
 
@@ -277,7 +276,7 @@ body {
 }
 
 .logout-button {
-  background-color: #ff4f58;
+  background-color: green;
   color: white;
   border: none;
 }
@@ -423,5 +422,145 @@ button:hover {
   #signup-form-container {
     padding: 20px;
     width: 90%;
+  }
+}
+/* General page styling */
+.item-details {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+/* Styling for images */
+.item-details img {
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* Title and headings */
+.item-details h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.item-details h3 {
+  font-size: 1.5rem;
+  margin-top: 20px;
+}
+
+/* Item details section */
+.item-details p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 8px 0;
+}
+
+.item-details strong {
+  font-weight: bold;
+}
+
+/* Claim button styling */
+button {
+  padding: 12px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Comments section styling */
+.comments-list {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 2px solid #f1f1f1;
+}
+
+/* Styling for individual comments */
+.comment {
+  background-color: #f9f9f9;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.comment p {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #333;
+}
+
+/* Comment form styling */
+form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+textarea {
+  width: 100%;
+  height: 100px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: vertical;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+}
+
+textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Submit button for comments */
+form button {
+  padding: 12px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #218838;
+}
+
+/* Styling for when no comments are available */
+.comments-list p {
+  font-style: italic;
+  color: #777;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .item-details {
+    padding: 15px;
+  }
+
+  .item-details h2 {
+    font-size: 1.6rem;
+  }
+
+  .item-details h3 {
+    font-size: 1.3rem;
+  }
+
+  .comment {
+    font-size: 0.9rem;
   }
 }

@@ -1,12 +1,15 @@
 // src/Components/FoundItemDetailsPage.js
-import React from "react";
-import { useNavigate, useLocation } from "react-router-dom"; // Import useNavigate and useLocation
+import React, { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./App.css";
 
 const FoundItemDetailsPage = () => {
   const navigate = useNavigate(); // Initialize useNavigate hook
   const location = useLocation();
   const { item } = location.state || {}; // Get item from location state
+
+  const [comment, setComment] = useState(""); // Local state for comment
+  const [commentsList, setCommentsList] = useState([]); // State to store the list of comments
 
   if (!item) {
     return <p>Item not found</p>;
@@ -15,6 +18,15 @@ const FoundItemDetailsPage = () => {
   // Handle navigation to claim item form
   const handleClaimClick = () => {
     navigate(`/claim-item/${item.id}`, { state: { item } });
+  };
+
+  // Handle comment submission
+  const handleCommentSubmit = (e) => {
+    e.preventDefault();
+    if (comment.trim()) {
+      setCommentsList([...commentsList, comment]);
+      setComment(""); // Clear the input after submission
+    }
   };
 
   return (
@@ -45,6 +57,28 @@ const FoundItemDetailsPage = () => {
       </p>
 
       <button onClick={handleClaimClick}>Claim</button>
+
+      <h3>Comments</h3>
+      <form onSubmit={handleCommentSubmit}>
+        <textarea
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+          placeholder="Leave a comment..."
+        />
+        <button type="submit">Submit Comment</button>
+      </form>
+
+      <div className="comments-list">
+        {commentsList.length > 0 ? (
+          commentsList.map((comment, index) => (
+            <div key={index} className="comment">
+              <p>{comment}</p>
+            </div>
+          ))
+        ) : (
+          <p>No comments yet.</p>
+        )}
+      </div>
     </div>
   );
 };

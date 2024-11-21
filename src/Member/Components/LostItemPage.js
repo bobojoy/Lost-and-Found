@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom"; // Link for navigation
 import LostItemCard from "./LostItemCard"; // Assuming you have a LostItemCard component
 import NavBar from "./NavBar"; // Assuming you have a NavBar component
-import "./App.css";
+import "./card.css";
 import { BASEURL } from "../../constants";
 
 const LostItemPage = () => {

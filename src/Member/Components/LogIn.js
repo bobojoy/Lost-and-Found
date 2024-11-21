@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "./login.css";
 import { useNavigate } from "react-router-dom";
+import "./login.css";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -19,13 +19,12 @@ function Login() {
     }).then((r) => {
       if (r.ok) {
         r.json().then(() => {
-          // setUser();
           setTimeout(() => {
-            navigate("/"); // Use navigate for consistency
+            navigate("/"); // Redirect to home page after login
           }, 1000);
         });
       } else {
-        r.json().then((err) => setError(err.error));
+        r.json().then((err) => setError(err.error)); // Display error if login fails
       }
     });
   };

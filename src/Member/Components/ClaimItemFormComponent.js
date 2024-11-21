@@ -114,6 +114,18 @@ function ClaimItemFormComponent() {
           required
         />
       </div>
+      <div className="inputGroup">
+        <label htmlFor="commentsection">Comment Section</label>
+        <input
+          type="commentsection"
+          id="commentsection"
+          name="commentsection"
+          value={formData.commentsection}
+          onChange={handleChange}
+          placeholder="Enter your comment section"
+          required
+        />
+      </div>
 
       <button type="submit" className="submitButton">
         Submit Claim

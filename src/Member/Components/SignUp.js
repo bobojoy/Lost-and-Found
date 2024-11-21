@@ -21,10 +21,10 @@ function Signup() {
       if (r.ok) {
         r.json().then(() => {
           alert("Sign Up successful");
-          navigate("/login");
+          navigate("/login"); // Redirect to login page after successful signup
         });
       } else {
-        r.json().then((err) => setError(err.error));
+        r.json().then((err) => setError(err.error)); // Display error if signup fails
       }
     });
   };
